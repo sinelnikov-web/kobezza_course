@@ -11,3 +11,7 @@ export interface ILinkedList<T, N> {
     values: () => IterableIterator<CanUndef<T>>;
     items: () => IterableIterator<CanUndef<N>>;
 }
+
+export interface IDoubleLinkedList<T, N> extends ILinkedList<T, N> {
+    last: Nullable<N>;
+}

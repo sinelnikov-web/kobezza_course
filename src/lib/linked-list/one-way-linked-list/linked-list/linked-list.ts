@@ -4,11 +4,12 @@ import { LinkedListNode } from '../../linked-list-node/one-way-node/one-way-node
 
 export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
     first: Nullable<ILinkedListNode<T>> = null;
-    #length: number = 0;
+    protected length: number = 0;
 
     push(value: T) {
+        const newNode = new LinkedListNode(value);
         if (this.first === null) {
-            this.first = new LinkedListNode(value);
+            this.first = newNode;
             return;
         }
         let current = this.first;
@@ -17,8 +18,8 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
             current = current.next;
         }
 
-        current.next = new LinkedListNode(value);
-        this.#length++;
+        current.next = newNode;
+        this.length++;
     }
 
     pop(): T {
@@ -35,19 +36,20 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
         }
         let result = current.next;
         current.next = null;
-        this.#length--;
+        this.length--;
         return result?.value as T;
     }
 
     unshift(value: T) {
+        const newNode = new LinkedListNode(value);
         if (this.first === null) {
-            this.first = new LinkedListNode(value);
+            this.first = newNode;
             return;
         }
         const currentFirst = this.first;
-        this.first = new LinkedListNode(value);
+        this.first = newNode;
         this.first.next = currentFirst;
-        this.#length++;
+        this.length++;
     }
 
     shift(): T {
@@ -56,16 +58,17 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
         }
         const currentFirst = this.first;
         this.first = currentFirst.next;
-        this.#length--;
+        this.length--;
         return currentFirst.value;
     }
 
     clean() {
         this.first = null;
+        this.length = 0;
     }
 
     insert(index: number, value: T) {
-        if (index >= this.#length) {
+        if (index >= this.length) {
             throw new Error('Index out of range');
         }
         let element = this.first;
@@ -80,7 +83,7 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
 
     find(cb: (value: T, index: number) => boolean): Nullable<T> {
         let current = this.first;
-        for (let i = 0; i < this.#length; i++) {
+        for (let i = 0; i < this.length; i++) {
             if (current && cb(current.value, i)) {
                 return current.value;
             } else {
@@ -92,7 +95,7 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
 
     findIndex(value: T): number {
         let current = this.first;
-        for (let i = 0; i < this.#length; i++) {
+        for (let i = 0; i < this.length; i++) {
             if (current && current.value === value) {
                 return i;
             }
