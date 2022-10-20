@@ -1,0 +1,67 @@
+"use strict";
+exports.__esModule = true;
+var dequeue_1 = require("./dequeue");
+describe('dequeue implementation', function () {
+    it('dequeue push values', function () {
+        var queue = new dequeue_1.Dequeue();
+        expect(queue.head).toBe(null);
+        expect(queue.tail).toBe(null);
+        queue.push(1);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(1);
+        queue.push(2);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(2);
+        queue.push(3);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(3);
+    });
+    it('dequeue pop values', function () {
+        var queue = new dequeue_1.Dequeue();
+        queue.push(1);
+        queue.push(2);
+        queue.push(3);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(3);
+        expect(queue.pop()).toBe(3);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(2);
+        expect(queue.pop()).toBe(2);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(1);
+        expect(queue.pop()).toBe(1);
+        expect(function () { return queue.pop(); }).toThrow('Queue is empty!');
+    });
+    it('dequeue unshift values', function () {
+        var queue = new dequeue_1.Dequeue();
+        queue.unshift(1);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(1);
+        queue.unshift(2);
+        expect(queue.head).toBe(2);
+        expect(queue.tail).toBe(1);
+        queue.unshift(3);
+        expect(queue.head).toBe(3);
+        expect(queue.tail).toBe(1);
+    });
+    it('dequeue shift values', function () {
+        var queue = new dequeue_1.Dequeue();
+        queue.unshift(1);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(1);
+        queue.unshift(2);
+        expect(queue.head).toBe(2);
+        expect(queue.tail).toBe(1);
+        queue.unshift(3);
+        expect(queue.head).toBe(3);
+        expect(queue.tail).toBe(1);
+        expect(queue.shift()).toBe(3);
+        expect(queue.head).toBe(2);
+        expect(queue.tail).toBe(1);
+        expect(queue.shift()).toBe(2);
+        expect(queue.head).toBe(1);
+        expect(queue.tail).toBe(1);
+        expect(queue.shift()).toBe(1);
+        expect(function () { return queue.pop(); }).toThrow('Queue is empty!');
+    });
+});

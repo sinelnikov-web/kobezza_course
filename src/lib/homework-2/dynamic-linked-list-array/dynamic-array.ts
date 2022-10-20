@@ -13,7 +13,7 @@ export class DynamicArray<T> implements IDynamicArray<T> {
     }
 
     add(value: T) {
-        if (this.length === this.currentArray.length) {
+        if (this.length !== 0 && this.length % this.currentArray.length === 0) {
             const newArray = new Array(this.currentArray.length);
             this.list.push(newArray);
             this.currentArray = newArray;
@@ -26,11 +26,43 @@ export class DynamicArray<T> implements IDynamicArray<T> {
         if (index > this.length) {
             throw new Error('Index out of range!');
         }
-        const steps = Math.floor(index / this.length);
+        const steps = Math.floor(index / this.currentArray.length);
         let current = this.list.first;
         for (let i = 0; i < steps; i++) {
             current = current?.next as LinkedListTwoWayNode<Array<T>>;
         }
-        return current?.value[index % (this.currentArray.length - 1)] as T;
+        return current?.value[index % this.currentArray.length] as T;
+    }
+
+    [Symbol.iterator](): IterableIterator<T> {
+        let current = this.list.first;
+        let currentIndex = 0;
+
+        return {
+            [Symbol.iterator](): IterableIterator<T> {
+                return this;
+            },
+            next(): IteratorResult<T> {
+                if (current === null || current.value[currentIndex] == undefined) {
+                    return {
+                        done: true,
+                        value: undefined,
+                    };
+                }
+
+                const value = current.value[currentIndex];
+                currentIndex++;
+
+                if (currentIndex === current.value.length) {
+                    current = current.next;
+                    currentIndex = 0;
+                }
+
+                return {
+                    done: false,
+                    value: value,
+                };
+            },
+        };
     }
 }

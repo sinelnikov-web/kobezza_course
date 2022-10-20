@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "ES2020",
     "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
@@ -15,7 +15,8 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
-    "baseUrl": "./src/"
+    "baseUrl": "./src/",
   },
+  "files": ["src/lib/shared-types.d.ts"],
   "exclude": ["node_modules"]
 }
