@@ -8,6 +8,7 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
 
     push(value: T) {
         const newNode = new LinkedListNode(value);
+        this.length++;
         if (this.first === null) {
             this.first = newNode;
             return;
@@ -19,7 +20,6 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
         }
 
         current.next = newNode;
-        this.length++;
     }
 
     pop(): T {
@@ -42,6 +42,7 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
 
     unshift(value: T) {
         const newNode = new LinkedListNode(value);
+        this.length++;
         if (this.first === null) {
             this.first = newNode;
             return;
@@ -49,7 +50,6 @@ export class LinkedList<T> implements ILinkedList<T, ILinkedListNode<T>> {
         const currentFirst = this.first;
         this.first = newNode;
         this.first.next = currentFirst;
-        this.length++;
     }
 
     shift(): T {

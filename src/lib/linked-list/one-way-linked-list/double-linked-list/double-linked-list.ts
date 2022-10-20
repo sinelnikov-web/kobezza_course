@@ -10,6 +10,7 @@ export class DoubleLinkedList<T> extends LinkedList<T> implements IDoubleLinkedL
 
     push(value: T): void {
         const newNode = new LinkedListNode(value);
+        this.length++;
         if (this.first === null || this.last === null) {
             this.first = newNode;
             this.last = this.first;
@@ -20,7 +21,6 @@ export class DoubleLinkedList<T> extends LinkedList<T> implements IDoubleLinkedL
             this.first.next = this.last;
         }
         this.last = this.last.next;
-        this.length++;
     }
 
     pop(): T {
@@ -45,6 +45,7 @@ export class DoubleLinkedList<T> extends LinkedList<T> implements IDoubleLinkedL
 
     unshift(value: T) {
         const newNode = new LinkedListNode(value);
+        this.length++;
         if (this.first === null || this.last === null) {
             this.first = newNode;
             this.last = newNode;
@@ -53,7 +54,6 @@ export class DoubleLinkedList<T> extends LinkedList<T> implements IDoubleLinkedL
         const currentFirst = this.first;
         this.first = newNode;
         this.first.next = currentFirst;
-        this.length++;
     }
 
     clean(): void {

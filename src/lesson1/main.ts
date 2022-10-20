@@ -1,5 +1,5 @@
 import { DoubleLinkedList, LinkedListNode } from '../lib/linked-list';
-import { Queue } from '../lib/Queue';
+import { Queue } from '../lib/queue';
 
 const queue = new Queue();
 

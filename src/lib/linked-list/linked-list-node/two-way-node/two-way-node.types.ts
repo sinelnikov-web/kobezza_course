@@ -6,4 +6,5 @@ export type NodeConfig<T> = {
 export interface ILinkedListTwoWayNode<T> {
     value: T;
     next: Nullable<ILinkedListTwoWayNode<T>>;
+    prev: Nullable<ILinkedListTwoWayNode<T>>;
 }
